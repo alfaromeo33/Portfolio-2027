@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { ProjectGallery } from "@/app/project-gallery";
-import { getPortfolioContent, awards, career } from "@/lib/content";
+import { getPortfolioContent } from "@/lib/content";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const { projects, site } = await getPortfolioContent();
+  const { projects, site, resume } = await getPortfolioContent();
   return (
     <main>
       <header className="site-header">
@@ -45,12 +45,12 @@ export default async function Home() {
       <section className="resume-section section-shell" id="resume">
         <div className="section-heading resume-heading"><div><p className="eyebrow">EXPERIENCE / EDUCATION / RECOGNITION</p><h2>이력과 경험</h2></div><Link className="text-link" href="/resume">이력서 전체 보기 <span>↗</span></Link></div>
         <div className="resume-grid">
-          <div className="resume-main"><h3>Career</h3><div className="career-list">{career.map((item) => <article className="career-item" key={item.company}><span className="career-date">{item.dates}</span><div><h4>{item.company}</h4><p className="career-role">{item.role}</p><p className="career-detail">{item.detail}</p></div></article>)}</div></div>
+          <div className="resume-main"><h3>Career</h3><div className="career-list">{resume.career.map((item) => <article className="career-item" key={item.company}><span className="career-date">{item.dates}</span><div><h4>{item.company}</h4><p className="career-role">{item.role}</p><p className="career-detail">{item.detail}</p></div></article>)}</div></div>
           <aside className="resume-aside">
-            <section className="resume-block"><h3>Degree</h3><div className="compact-row"><span>2005.03 — 2009.02</span><p>한성대학교 제품디자인전공 · 졸업</p></div><div className="compact-row"><span>2002.03 — 2005.02</span><p>전주 영생고등학교 · 졸업</p></div></section>
-            <section className="resume-block"><h3>Skills</h3><div className="skill-groups"><div><span>AI</span><p>Midjourney <b>·</b> Vizcom</p></div><div><span>2D</span><p>Illustrator <b>·</b> Photoshop</p></div><div><span>3D</span><p>Rhinoceros <b>·</b> KeyShot</p></div></div></section>
-            <section className="resume-block"><h3>Lecture</h3><div className="compact-row"><span>AI 강좌 / 1차</span><p>생성형 AI 사용법, 실무에서의 활용법</p></div><div className="compact-row"><span>AI 강좌 / 2차</span><p>토요타 보쇼쿠 / 선행디자인팀</p></div></section>
-            <section className="resume-block"><h3>Awards</h3><div className="award-list">{awards.map(([date, name, award]) => <div className="compact-row" key={name}><span>{date}</span><p>{name}<small>{award}</small></p></div>)}</div></section>
+            <section className="resume-block"><h3>Degree</h3>{resume.education.map(([date, school, major]) => <div className="compact-row" key={school}><span>{date}</span><p>{school} {major}</p></div>)}</section>
+            <section className="resume-block"><h3>Skills</h3><div className="skill-groups">{resume.skills.map(([group, first, second]) => <div key={group}><span>{group}</span><p>{first} <b>·</b> {second}</p></div>)}</div></section>
+            <section className="resume-block"><h3>Lecture</h3>{resume.lectures.map(([date, title]) => <div className="compact-row" key={date}><span>{date}</span><p>{title}</p></div>)}</section>
+            <section className="resume-block"><h3>Awards</h3><div className="award-list">{resume.awards.map(([date, name, award]) => <div className="compact-row" key={name}><span>{date}</span><p>{name}<small>{award}</small></p></div>)}</div></section>
           </aside>
         </div>
       </section>

@@ -2,6 +2,15 @@ import { projects as fallbackProjects, type Project } from "@/lib/projects";
 import { awards, career, education, lectures, skills } from "@/lib/resume-data";
 import { getPortfolioDatabase } from "@/lib/mongodb";
 
+export type CareerItem = { dates: string; company: string; role: string; detail: string };
+export type ResumeContent = {
+  career: CareerItem[];
+  education: string[][];
+  skills: string[][];
+  lectures: string[][];
+  awards: string[][];
+};
+
 export type PortfolioContent = {
   site: {
     name: string;
@@ -12,6 +21,7 @@ export type PortfolioContent = {
     aboutDescription: string;
   };
   projects: Project[];
+  resume: ResumeContent;
 };
 
 export const fallbackContent: PortfolioContent = {
@@ -24,6 +34,13 @@ export const fallbackContent: PortfolioContent = {
     aboutDescription: "산업 디자인을 바탕으로 제품, 모빌리티, 가구와 생활용품을 만들어 왔습니다. 사용자의 행동을 살피고 재료와 제조의 가능성을 함께 고민하며, 오래 곁에 두고 싶은 제품을 설계합니다.",
   },
   projects: fallbackProjects,
+  resume: {
+    career: career.map((item) => ({ ...item })),
+    education: education.map((item) => [...item]),
+    skills: skills.map((item) => [...item]),
+    lectures: lectures.map((item) => [...item]),
+    awards: awards.map((item) => [...item]),
+  },
 };
 
 export async function getPortfolioContent(): Promise<PortfolioContent> {
@@ -32,7 +49,12 @@ export async function getPortfolioContent(): Promise<PortfolioContent> {
     const db = await getPortfolioDatabase();
     const stored = await db.collection<PortfolioContent>("content").findOne({ _id: "portfolio" } as never);
     if (!stored) return fallbackContent;
-    return { ...fallbackContent, ...stored, site: { ...fallbackContent.site, ...stored.site } };
+    return {
+      ...fallbackContent,
+      ...stored,
+      site: { ...fallbackContent.site, ...stored.site },
+      resume: { ...fallbackContent.resume, ...stored.resume },
+    };
   } catch (error) {
     console.error("Unable to read portfolio content from MongoDB", error);
     return fallbackContent;
