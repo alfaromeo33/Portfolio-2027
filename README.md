@@ -17,12 +17,13 @@ Portfolio and résumé site built with Next.js App Router and TypeScript. Projec
 - **MongoDB:** `lib/mongodb.ts` exposes a cached server-side MongoDB client. Set `MONGODB_URI` and optionally `MONGODB_DB`.
 - **Cloudflare R2:** `lib/r2.ts` provides a server-side S3 client, short-lived presigned upload URL helper, and public object URL helper. Set the R2 account, access key, bucket, and public base URL variables. Keep all R2 secrets server-side; never prefix them with `NEXT_PUBLIC_`.
 
-The current portfolio is read-only and uses its checked-in project data and reference-derived images. MongoDB and R2 credentials are intentionally not required until a content editor or upload flow is added.
+The portfolio includes a protected editor at `/admin`. Set `MONGODB_URI`, `ADMIN_PASSWORD`, and `ADMIN_SESSION_SECRET` in Vercel before using it. The editor updates site contact copy and project text in MongoDB; if MongoDB is unavailable, the public site falls back to the checked-in content.
 
 ## Content and assets
 
 - Update project copy and metadata in `lib/projects.ts`.
 - Project detail routes are generated from each project's `slug`.
 - The portfolio overview is `/`; the standalone résumé is `/resume`.
+- The content editor is `/admin`. It supports site copy and project metadata; project images remain in `public/projects/` for now.
 - Web-sized reference images and the résumé portrait are in `public/projects/` and `public/profile/`.
 - Résumé career, education, skills, lectures, and awards are maintained in `app/page.tsx`.

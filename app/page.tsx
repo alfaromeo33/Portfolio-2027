@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { ProjectGallery } from "@/app/project-gallery";
-import { projects } from "@/lib/projects";
-import { awards, career } from "@/lib/resume-data";
+import { getPortfolioContent, awards, career } from "@/lib/content";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const { projects, site } = await getPortfolioContent();
   return (
     <main>
       <header className="site-header">
@@ -16,7 +18,7 @@ export default function Home() {
         <div className="hero-copy">
           <p className="eyebrow"><span className="status-dot" /> INDUSTRIAL &amp; PRODUCT DESIGNER · SEOUL</p>
           <h1>쓰임을 먼저 생각하고,<br /><em>형태로 답합니다.</em></h1>
-          <p className="hero-intro">신영중입니다. 제품과 모빌리티, 생활의 장면을 관찰하고<br className="desktop-break" /> 더 나은 경험으로 이어지는 형태를 만듭니다.</p>
+          <p className="hero-intro">{site.heroIntro}</p>
           <div className="hero-actions"><a className="button button-dark" href="#work">프로젝트 보기 <span>↓</span></a><a className="text-link" href="mailto:syj1615@naver.com">함께 이야기하기 <span>↗</span></a></div>
         </div>
         <div className="hero-art" aria-label="Dr.forHair 샴푸 패키지 프로젝트 이미지">
@@ -36,7 +38,7 @@ export default function Home() {
       <section className="about-section" id="about">
         <div className="section-shell about-layout">
           <div className="about-photo"><img src="/profile/portrait.jpg" alt="제품 디자이너 신영중" /><span className="photo-index">SHIN YOUNG JUNG · 2026</span></div>
-          <div className="about-copy"><p className="eyebrow">A LITTLE ABOUT ME</p><h2>좋은 디자인은<br />일상의 작은 차이를<br /><em>오래 남깁니다.</em></h2><p className="about-description">산업 디자인을 바탕으로 제품, 모빌리티, 가구와 생활용품을 만들어 왔습니다. 사용자의 행동을 살피고 재료와 제조의 가능성을 함께 고민하며, 오래 곁에 두고 싶은 제품을 설계합니다.</p><div className="about-contact"><span>SEOUL, REPUBLIC OF KOREA</span><a href="mailto:syj1615@naver.com">syj1615@naver.com <span>↗</span></a></div></div>
+          <div className="about-copy"><p className="eyebrow">A LITTLE ABOUT ME</p><h2>좋은 디자인은<br />일상의 작은 차이를<br /><em>오래 남깁니다.</em></h2><p className="about-description">{site.aboutDescription}</p><div className="about-contact"><span>{site.location}</span><a href={`mailto:${site.email}`}>{site.email} <span>↗</span></a></div></div>
         </div>
       </section>
 
@@ -53,7 +55,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="contact-section section-shell"><p className="eyebrow">HAVE A PROJECT IN MIND?</p><h2>함께 만들고 싶은<br /><em>이야기가 있나요?</em></h2><a className="button button-light" href="mailto:syj1615@naver.com">이메일 보내기 <span>↗</span></a><p className="contact-phone">+82 10 9899 6786</p></section>
+      <section className="contact-section section-shell"><p className="eyebrow">HAVE A PROJECT IN MIND?</p><h2>함께 만들고 싶은<br /><em>이야기가 있나요?</em></h2><a className="button button-light" href={`mailto:${site.email}`}>이메일 보내기 <span>↗</span></a><p className="contact-phone">{site.phone}</p></section>
       <footer className="site-footer section-shell"><Link className="brand" href="#top">SYJ<span>®</span></Link><span>© 2026 SHIN YOUNG JUNG. ALL RIGHTS RESERVED.</span><a href="#top">BACK TO TOP ↑</a></footer>
     </main>
   );
