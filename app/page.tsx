@@ -1,0 +1,60 @@
+import Link from "next/link";
+import { ProjectGallery } from "@/app/project-gallery";
+import { projects } from "@/lib/projects";
+import { awards, career } from "@/lib/resume-data";
+
+export default function Home() {
+  return (
+    <main>
+      <header className="site-header">
+        <Link className="brand" href="#top" aria-label="신영중 홈">SYJ<span>®</span></Link>
+        <nav aria-label="주요 메뉴"><a href="#work">프로젝트</a><a href="#about">소개</a><a href="#resume">이력</a></nav>
+        <a className="header-contact" href="mailto:syj1615@naver.com">연락하기 <span>↗</span></a>
+      </header>
+
+      <section className="hero section-shell" id="top">
+        <div className="hero-copy">
+          <p className="eyebrow"><span className="status-dot" /> INDUSTRIAL &amp; PRODUCT DESIGNER · SEOUL</p>
+          <h1>쓰임을 먼저 생각하고,<br /><em>형태로 답합니다.</em></h1>
+          <p className="hero-intro">신영중입니다. 제품과 모빌리티, 생활의 장면을 관찰하고<br className="desktop-break" /> 더 나은 경험으로 이어지는 형태를 만듭니다.</p>
+          <div className="hero-actions"><a className="button button-dark" href="#work">프로젝트 보기 <span>↓</span></a><a className="text-link" href="mailto:syj1615@naver.com">함께 이야기하기 <span>↗</span></a></div>
+        </div>
+        <div className="hero-art" aria-label="Dr.forHair 샴푸 패키지 프로젝트 이미지">
+          <div className="art-orbit orbit-one" /><div className="art-orbit orbit-two" />
+          <div className="hero-art-image"><img src="/projects/dr-forhair.jpg" alt="Dr.forHair 샴푸 패키지 제품 디자인" /></div>
+          <div className="art-caption"><span>01 / 09</span><span>FORM &amp; EVERYDAY RITUAL</span></div>
+          <span className="hero-side-note">DESIGNING THINGS THAT MATTER</span>
+        </div>
+        <div className="hero-bottom"><span>PRODUCT · MOBILITY · LIFESTYLE</span><a href="#work">SCROLL TO EXPLORE <span>↓</span></a></div>
+      </section>
+
+      <section className="work-section section-shell" id="work">
+        <div className="section-heading"><div><p className="eyebrow">SELECTED WORK / 2025—2026</p><h2>프로젝트<span className="heading-count">{String(projects.length).padStart(2, "0")}</span></h2></div><p>형태와 재료, 쓰임을 탐색한<br />제품 디자인 프로젝트입니다.</p></div>
+        <ProjectGallery projects={projects} />
+      </section>
+
+      <section className="about-section" id="about">
+        <div className="section-shell about-layout">
+          <div className="about-photo"><img src="/profile/portrait.jpg" alt="제품 디자이너 신영중" /><span className="photo-index">SHIN YOUNG JUNG · 2026</span></div>
+          <div className="about-copy"><p className="eyebrow">A LITTLE ABOUT ME</p><h2>좋은 디자인은<br />일상의 작은 차이를<br /><em>오래 남깁니다.</em></h2><p className="about-description">산업 디자인을 바탕으로 제품, 모빌리티, 가구와 생활용품을 만들어 왔습니다. 사용자의 행동을 살피고 재료와 제조의 가능성을 함께 고민하며, 오래 곁에 두고 싶은 제품을 설계합니다.</p><div className="about-contact"><span>SEOUL, REPUBLIC OF KOREA</span><a href="mailto:syj1615@naver.com">syj1615@naver.com <span>↗</span></a></div></div>
+        </div>
+      </section>
+
+      <section className="resume-section section-shell" id="resume">
+        <div className="section-heading resume-heading"><div><p className="eyebrow">EXPERIENCE / EDUCATION / RECOGNITION</p><h2>이력과 경험</h2></div><Link className="text-link" href="/resume">이력서 전체 보기 <span>↗</span></Link></div>
+        <div className="resume-grid">
+          <div className="resume-main"><h3>Career</h3><div className="career-list">{career.map((item) => <article className="career-item" key={item.company}><span className="career-date">{item.dates}</span><div><h4>{item.company}</h4><p className="career-role">{item.role}</p><p className="career-detail">{item.detail}</p></div></article>)}</div></div>
+          <aside className="resume-aside">
+            <section className="resume-block"><h3>Degree</h3><div className="compact-row"><span>2005.03 — 2009.02</span><p>한성대학교 제품디자인전공 · 졸업</p></div><div className="compact-row"><span>2002.03 — 2005.02</span><p>전주 영생고등학교 · 졸업</p></div></section>
+            <section className="resume-block"><h3>Skills</h3><div className="skill-groups"><div><span>AI</span><p>Midjourney <b>·</b> Vizcom</p></div><div><span>2D</span><p>Illustrator <b>·</b> Photoshop</p></div><div><span>3D</span><p>Rhinoceros <b>·</b> KeyShot</p></div></div></section>
+            <section className="resume-block"><h3>Lecture</h3><div className="compact-row"><span>AI 강좌 / 1차</span><p>생성형 AI 사용법, 실무에서의 활용법</p></div><div className="compact-row"><span>AI 강좌 / 2차</span><p>토요타 보쇼쿠 / 선행디자인팀</p></div></section>
+            <section className="resume-block"><h3>Awards</h3><div className="award-list">{awards.map(([date, name, award]) => <div className="compact-row" key={name}><span>{date}</span><p>{name}<small>{award}</small></p></div>)}</div></section>
+          </aside>
+        </div>
+      </section>
+
+      <section className="contact-section section-shell"><p className="eyebrow">HAVE A PROJECT IN MIND?</p><h2>함께 만들고 싶은<br /><em>이야기가 있나요?</em></h2><a className="button button-light" href="mailto:syj1615@naver.com">이메일 보내기 <span>↗</span></a><p className="contact-phone">+82 10 9899 6786</p></section>
+      <footer className="site-footer section-shell"><Link className="brand" href="#top">SYJ<span>®</span></Link><span>© 2026 SHIN YOUNG JUNG. ALL RIGHTS RESERVED.</span><a href="#top">BACK TO TOP ↑</a></footer>
+    </main>
+  );
+}
