@@ -17,6 +17,9 @@ export type PortfolioContent = {
     email: string;
     phone: string;
     location: string;
+    heroEyebrow: string;
+    heroTitle: string;
+    heroTitleEm: string;
     heroIntro: string;
     aboutDescription: string;
   };
@@ -30,6 +33,9 @@ export const fallbackContent: PortfolioContent = {
     email: "syj1615@naver.com",
     phone: "+82 10 9899 6786",
     location: "SEOUL, REPUBLIC OF KOREA",
+    heroEyebrow: "INDUSTRIAL & PRODUCT DESIGNER · SEOUL",
+    heroTitle: "쓰임을 먼저 생각하고,",
+    heroTitleEm: "형태로 답합니다.",
     heroIntro: "신영중입니다. 제품과 모빌리티, 생활의 장면을 관찰하고 더 나은 경험으로 이어지는 형태를 만듭니다.",
     aboutDescription: "산업 디자인을 바탕으로 제품, 모빌리티, 가구와 생활용품을 만들어 왔습니다. 사용자의 행동을 살피고 재료와 제조의 가능성을 함께 고민하며, 오래 곁에 두고 싶은 제품을 설계합니다.",
   },

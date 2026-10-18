@@ -16,8 +16,8 @@ export default async function Home() {
 
       <section className="hero section-shell" id="top">
         <div className="hero-copy">
-          <p className="eyebrow"><span className="status-dot" /> INDUSTRIAL &amp; PRODUCT DESIGNER · SEOUL</p>
-          <h1>쓰임을 먼저 생각하고,<br /><em>형태로 답합니다.</em></h1>
+          <p className="eyebrow"><span className="status-dot" /> {site.heroEyebrow}</p>
+          <h1>{site.heroTitle}<br /><em>{site.heroTitleEm}</em></h1>
           <p className="hero-intro">{site.heroIntro}</p>
           <div className="hero-actions"><a className="button button-dark" href="#work">프로젝트 보기 <span>↓</span></a><a className="text-link" href="mailto:syj1615@naver.com">함께 이야기하기 <span>↗</span></a></div>
         </div>
