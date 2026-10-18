@@ -2,7 +2,8 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 import { cookies } from "next/headers";
 
 const COOKIE = "portfolio_admin";
-const secret = () => process.env.ADMIN_SESSION_SECRET || process.env.ADMIN_PASSWORD || "";
+// The admin password is already server-only, so it also signs the session cookie.
+const secret = () => process.env.ADMIN_PASSWORD || "";
 
 function sign(value: string) {
   return createHmac("sha256", secret()).update(value).digest("hex");
